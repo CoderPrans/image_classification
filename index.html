@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Classification</title>
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css"
+  />
+  <style>
+    img {
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
+  <div class="container" style="width: auto;">
+    <div class="row">
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img1"
+          src="cat.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img2"
+          src="dog.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img3"
+          src="person.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img4"
+          src="plane.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img5"
+          src="macintosh.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img6"
+          src="chair.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img6"
+          src="clock.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+      <div class="col-xs-12 col-md-6 col-lg-3">
+        <img
+          class="img-responsive"
+          id="img6"
+          src="vase.jpeg"
+          onclick="predictImg(this)"
+        />
+      </div>
+    </div>
+  </div>
+  <br />
+  <!-- Load TensorFlow.js. This is required to use coco-ssd model. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <!-- Load the coco-ssd model. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  <!-- Place your code in the script tag below. You can also use an external .js file -->
+  <script>
+    // Notice there is no 'import' statement. 'cocoSsd' and 'tf' is
+    // available on the index-page because of the script tag above.
+
+    const predictImg = image => {
+      console.log(image);
+      // Load the model.
+      cocoSsd.load().then(model => {
+        // detect objects in the image.
+        model.detect(image).then(predictions => {
+          console.log(predictions);
+          alert(`${predictions[0].class}, ${predictions[0].score}`);
+        });
+      });
+    };
+  </script>
+</body>
